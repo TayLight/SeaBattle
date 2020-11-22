@@ -1,4 +1,4 @@
-package com.seabattle.SeaBattle;
+package com.seabattle.SeaBattle.main;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
