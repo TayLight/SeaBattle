@@ -15,4 +15,6 @@ public interface UserService {
     void update(User user, int userId);
 
     void delete(int userId);
+
+    User auth(String login, byte[] hash);
 }

@@ -17,6 +17,4 @@ public class Rating {
     private int ratingId;
     @Column(name = "score")
     private int score;
-    @OneToOne(optional = false, mappedBy = "rating")
-    private User user;
 }

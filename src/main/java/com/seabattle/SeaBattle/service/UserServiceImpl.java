@@ -2,9 +2,12 @@ package com.seabattle.SeaBattle.service;
 
 import com.seabattle.SeaBattle.entity.User;
 import com.seabattle.SeaBattle.repo.UserRepository;
+import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
+@Service
 public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
@@ -36,5 +39,19 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(int userId) {
         userRepository.deleteById(userId);
+    }
+
+    @Override
+    public User auth(String login, byte[] hash) {
+        User user  = userRepository.findUserByLogin(login);
+        System.out.println(login+" = " + user.getLogin());
+        if(Arrays.equals(user.hashCodePassword(), hash)) {
+            System.out.println("true");
+            return user;
+        }
+        else{
+            System.out.println("false");
+            return null;
+        }
     }
 }

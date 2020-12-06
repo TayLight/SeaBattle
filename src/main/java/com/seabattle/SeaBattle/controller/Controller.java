@@ -3,9 +3,7 @@ package com.seabattle.SeaBattle.controller;
 import com.seabattle.SeaBattle.entity.User;
 import com.seabattle.SeaBattle.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -20,12 +18,13 @@ public class Controller {
         this.userService = userService;
     }
 
-    @GetMapping
+    @GetMapping("all")
     public List<User> readAllUser(){
-        User user = new User();
-        user.setLogin("login");
-        List<User> list = new LinkedList<User>();
-        list.add(user);
-        return list;
+        return userService.readAllUser();
+    }
+
+    @PostMapping("auth")
+    public User auth(@RequestBody User user){
+        return userService.auth(user.getLogin(), user.hashCodePassword());
     }
 }
