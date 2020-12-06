@@ -7,8 +7,8 @@ import java.util.Arrays;
 public class Test {
 
     public static void main(String[] arg){
-        User user = new User();
-        user.setPassword("DenisPassword");
-        System.out.println(Arrays.toString(user.hashCodePassword()));
+        for(int i=0; i<20; i++){
+            System.out.println(1 + (int) (Math.random()*2));
+        }
     }
 }

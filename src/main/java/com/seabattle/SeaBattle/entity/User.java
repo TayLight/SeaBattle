@@ -34,6 +34,7 @@ public class User {
     @OneToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_user")
     private Rating rating;
+    private int countShips;
 
     public byte[] hashCodePassword(){
         try {
@@ -48,5 +49,17 @@ public class User {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void lose(int round){
+
+    }
+
+    public void win(int round){
+
+    }
+
+    public void nextRound(){
+
     }
 }
