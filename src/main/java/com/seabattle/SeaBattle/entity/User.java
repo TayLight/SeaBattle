@@ -18,7 +18,7 @@ import java.util.Random;
 @Entity
 @Data
 @Table(name="user", schema = "public")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", ""})
 public class User {
 
     @Id
@@ -34,7 +34,7 @@ public class User {
     @OneToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_user")
     private Rating rating;
-    private int countShips;
+    
 
     public byte[] hashCodePassword(){
         try {

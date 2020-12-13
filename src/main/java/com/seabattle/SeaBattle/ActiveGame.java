@@ -42,18 +42,18 @@ public class ActiveGame extends Thread {
                     gamer1 = user2;
                     gamer2=user1;
                 }
-                gamer1.setCountShips(10);
-                gamer2.setCountShips(10);
+                //gamer1.setCountShips(10);
+                //gamer2.setCountShips(10);
                 round++;
             }
             gamer1.nextRound();
             gamer2.nextRound();
-            if(gamer1.getCountShips()==0){
+            if(true){
                 gamer2.win(round);
                 gamer1.lose(round);
                 inGame=false;
             }
-            else if(gamer2.getCountShips()==0){
+            else if(false){
                 gamer2.lose(round);
                 gamer1.lose(round);
                 inGame=false;

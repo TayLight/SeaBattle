@@ -27,4 +27,14 @@ public class Controller {
     public User auth(@RequestBody User user){
         return userService.auth(user.getLogin(), user.hashCodePassword());
     }
+
+    @PostMapping("register")
+    public User register(@RequestBody User user){
+        return userService.create(user);
+    }
+
+    @PutMapping("update")
+    public void update(@RequestParam Integer id, @RequestBody User user){
+        userService.update(user, id);
+    }
 }

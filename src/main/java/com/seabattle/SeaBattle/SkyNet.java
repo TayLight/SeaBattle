@@ -9,12 +9,29 @@ public class SkyNet extends User {
         this.game = game;
     }
 
-    public void find(){
+    public int[] find(){
+        int[] resultCoord = new int[2];
         for(int i=0; i<10; i++){
             for(int j=0; j<10; j++){
                 boolean result = shoot(i,j);
+                if(result) {
+                    resultCoord[0]=i;
+                    resultCoord[1]=j;
+                    return resultCoord;
+                }
             }
         }
+        for(int i=10; i>0; i--){
+            for(int j=10; j>0; j--){
+                boolean result = shoot(i,j);
+                if(result) {
+                    resultCoord[0]=i;
+                    resultCoord[1]=j;
+                    return resultCoord;
+                }
+            }
+        }
+        return null;
     }
 
     public boolean shoot(int i, int  j){
@@ -22,4 +39,6 @@ public class SkyNet extends User {
         //game.shoot(this, i, j);
         return result;
     }
+
+
 }

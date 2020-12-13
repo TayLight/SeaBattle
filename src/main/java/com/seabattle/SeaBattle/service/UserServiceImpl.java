@@ -1,15 +1,19 @@
 package com.seabattle.SeaBattle.service;
 
+import com.seabattle.SeaBattle.ActiveGame;
 import com.seabattle.SeaBattle.entity.User;
 import com.seabattle.SeaBattle.repo.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
+    private List<User> activeUser = new LinkedList<>();
+    private List<ActiveGame> activeGames = new LinkedList<>();
 
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -54,4 +58,9 @@ public class UserServiceImpl implements UserService {
             return null;
         }
     }
+
+    public ActiveGame startGameWithSkynet(User user){
+        return new ActiveGame(user);
+    }
+
 }
