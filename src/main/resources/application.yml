@@ -1,9 +1,15 @@
+server:
+  port: 3000
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/SeaBattle
+    url: jdbc:postgresql://localhost:5432/seabattle
     username: postgres
     password: root
   jpa:
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+    properties:
+      hibernate:
+        id:
+          new_generator_mappings: false

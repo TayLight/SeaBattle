@@ -22,7 +22,8 @@ import java.util.Random;
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@SequenceGenerator(name="user_id_user_seq", sequenceName = "user_id_user_seq", allocationSize = 1)
     @Column(name = "id_user")
     private int userId;
     @Column(name = "login")
@@ -30,10 +31,10 @@ public class User {
     @Column(name = "password")
     private String password;
     @Column(name = "secret_word")
-    private String secretWorld;
-    @OneToOne(optional = false, cascade = CascadeType.ALL)
+    private String secretWord;
+    /*@OneToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_user")
-    private Rating rating;
+    private Rating rating;*/
     
 
     public byte[] hashCodePassword(){
