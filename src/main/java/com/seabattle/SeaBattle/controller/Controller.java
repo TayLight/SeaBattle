@@ -34,7 +34,7 @@ public class Controller {
     }
 
     @PutMapping("update")
-    public void update(@RequestParam Integer id, @RequestBody User user){
-        userService.update(user, id);
+    public void update(@RequestBody User user){
+        userService.update(user);
     }
 }
