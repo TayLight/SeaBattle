@@ -3,6 +3,8 @@ package com.seabattle.SeaBattle.controller;
 import com.seabattle.SeaBattle.entity.User;
 import com.seabattle.SeaBattle.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedList;
@@ -24,8 +26,12 @@ public class Controller {
     }
 
     @PostMapping("auth")
-    public User auth(@RequestBody User user){
-        return userService.auth(user.getLogin(), user.hashCodePassword());
+    public ResponseEntity<User> auth(@RequestBody User user){
+        User authUser = userService.auth(user.getLogin(), user.hashCodePassword());
+        if(authUser!=null)
+            return new ResponseEntity<>(authUser, HttpStatus.OK);
+        else
+            return new ResponseEntity<>(null, HttpStatus.I_AM_A_TEAPOT);
     }
 
     @PostMapping("register")
