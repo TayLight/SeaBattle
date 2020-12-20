@@ -1,10 +1,15 @@
 package com.seabattle.SeaBattle;
 
 import com.seabattle.SeaBattle.entity.User;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Random;
 
-public class ActiveGame extends Thread {
+@EqualsAndHashCode(callSuper = false)
+public class ActiveGame   {
+    private String status;
     private boolean inGame = true;
     private User user1;
     private User user2;
@@ -12,9 +17,21 @@ public class ActiveGame extends Thread {
     private  int round;
     private User gamer1;
     private User gamer2;
+    private int countShips1;
+    private int countShips2;
+    private User whoTurn;
     private boolean inRound;
+    @Getter
+    @Setter
     private int[][] field1;
+    @Getter
+    @Setter
     private int[][] field2;
+
+    public ActiveGame(User user){
+        this.user1 = user;
+        status = "Ждем второго игрока";
+    }
 
     public ActiveGame(User user1, User user2) {
         this.user1 = user1;
@@ -23,42 +40,81 @@ public class ActiveGame extends Thread {
         round=0;
     }
 
-    public ActiveGame(User user1) {
+    public ActiveGame(User user1, int[][] fieldUser) {
         this.user1 = user1;
         user2 = new SkyNet(this);
         random = new Random();
+        field1= fieldUser;
+        GameUntil gameUntil = new GameUntil();
+        field2 = gameUntil.fullField();
         round=0;
+        countShips1=10;
+        countShips2=10;
+
+        int rand = 1 + (int) (Math.random() * 2);
+        if(rand == 1) {
+            whoTurn = user1;
+            status="Ход игрока 1";
+        }
+        else
+            whoTurn= user2;
     }
 
-    @Override
-    public void run() {
-        while(inGame) {
-            if (round == 0){
-                int coin = 1 + (int) (Math.random() * 2);
-                if (coin == 1) {
-                    gamer1=user1;
-                    gamer2=user2;
-                } else {
-                    gamer1 = user2;
-                    gamer2=user1;
+
+
+    public String fire(int[] cord, User user){
+        if(countShips1!=0||countShips2!=0) {
+            if (user.getUserId() == user1.getUserId() && whoTurn.equals(user1)) {
+                if (!(field2[cord[0]][cord[1]] == 0) && !(field2[cord[0]][1] == 5)) {
+                    int result = field2[cord[0]][cord[1]];
+                    switch (result){
+                        case 1:
+                            countShips2--;
+                            if (countShips2 != 0) {
+                                return "Убит однопалубный корабль";
+                            } else return "Победа игрока 2";
+                        case 2:
+
+                            countShips2--;
+                            return "Попадание";
+                        case 3:
+                            countShips2--;
+                            return "Попадание";
+                        case 4:
+                            countShips2--;
+                            return "Попадание";
+                        case 5:
+                            countShips2--;
+                            return "Промах";
+                    }
+                } else{
+                    whoTurn= user2;
+                    round++;
+                    status="Ход игрока 2";
+                    return "Промах";
                 }
-                //gamer1.setCountShips(10);
-                //gamer2.setCountShips(10);
-                round++;
+            } else if (user.getUserId() == user2.getUserId() && whoTurn.equals(user2)) {
+                if (!(field1[cord[0]][cord[1]] == 0) && !(field1[cord[0]][1] == 5)) {
+                    return "Попадание";
+                } else {
+                    whoTurn = user1;
+                    status = "Ход игрока 2";
+                    round++;
+                    return "Промах";}
+            } else if (user.getUserId() == user2.getUserId() && whoTurn.equals(user1)) {
+                return "Не твой ход";
+            } else if (user.getUserId() == user1.getUserId() && whoTurn.equals(user2)) {
+                return "Не твой ход";
             }
-            gamer1.nextRound();
-            gamer2.nextRound();
-            if(true){
-                gamer2.win(round);
-                gamer1.lose(round);
-                inGame=false;
+        } else {
+            if(countShips1==0){
+                return "Победа игрока 2";
+            } else {
+                return "Победа игрока 1";
             }
-            else if(false){
-                gamer2.lose(round);
-                gamer1.lose(round);
-                inGame=false;
-            }
-            round++;
         }
+        return null;
     }
+
+    
 }

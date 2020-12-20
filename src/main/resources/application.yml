@@ -1,9 +1,9 @@
 server:
-  port: 3000
+  port: 8080
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/seabattle
+    url: jdbc:postgresql://localhost:5432/SeaBattle
     username: postgres
     password: root
   jpa:
