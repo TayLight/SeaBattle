@@ -1,6 +1,7 @@
 package com.seabattle.SeaBattle.controller;
 
 import com.seabattle.SeaBattle.ActiveGame;
+import com.seabattle.SeaBattle.entity.Ship;
 import com.seabattle.SeaBattle.entity.User;
 import com.seabattle.SeaBattle.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.LinkedList;
 import java.util.List;
 
 @RestController
@@ -36,12 +36,12 @@ public class Controller {
     }
 
     @GetMapping("berega")
-    public int[][] berega(){
+    public List<Ship> berega(){
         return userService.berega();
     }
 
     @GetMapping("halfField")
-    public int[][] halfField(){
+    public List<Ship> halfField(){
         return userService.halfField();
     }
 
@@ -55,9 +55,9 @@ public class Controller {
         userService.update(user);
     }
 
-    @PostMapping("newGameWithII")
-    public ActiveGame newGameWithII(@RequestBody int[][] fieldUser, @RequestBody User user){
-        return  userService.newGameWithII(user, fieldUser);
+    @PostMapping("findGame")
+    public ActiveGame newGame(@RequestBody int[][] fieldUser, @RequestBody User user){
+        return  userService.newGame(user, fieldUser);
     }
 
     @GetMapping("fire")

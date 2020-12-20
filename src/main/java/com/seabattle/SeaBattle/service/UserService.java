@@ -1,6 +1,7 @@
 package com.seabattle.SeaBattle.service;
 
 import com.seabattle.SeaBattle.ActiveGame;
+import com.seabattle.SeaBattle.entity.Ship;
 import com.seabattle.SeaBattle.entity.User;
 
 import java.util.List;
@@ -19,11 +20,11 @@ public interface UserService {
 
     User auth(String login, byte[] hash);
 
-    ActiveGame newGameWithII(User user, int[][] fieldUser);
+    ActiveGame newGame(User user, int[][] fieldUser);
 
     ActiveGame fire(ActiveGame activeGame, int[] cord);
 
-    int[][] berega();
+    List<Ship> berega();
 
-    int[][] halfField();
+    List<Ship> halfField();
 }

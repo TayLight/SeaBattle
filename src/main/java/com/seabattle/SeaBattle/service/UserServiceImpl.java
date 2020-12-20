@@ -2,12 +2,12 @@ package com.seabattle.SeaBattle.service;
 
 import com.seabattle.SeaBattle.ActiveGame;
 import com.seabattle.SeaBattle.GameUntil;
+import com.seabattle.SeaBattle.entity.Ship;
 import com.seabattle.SeaBattle.entity.User;
 import com.seabattle.SeaBattle.repo.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,7 +15,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     private List<User> activeUser = new LinkedList<>();
-    private HashMap<Integer, ActiveGame> activeGames = new HashMap<>();
+    private List<ActiveGame> activeGames = new LinkedList<>();
 
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -63,10 +63,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ActiveGame newGameWithII(User user, int[][] fieldUser) {
-        ActiveGame activeGame = new ActiveGame(user, fieldUser);
-        activeGames.put(activeGame.hashCode(),activeGame);
-        return activeGame;
+    public ActiveGame newGame(User user, int[][] fieldUser) {
+        ActiveGame findGame = null;
+        for(ActiveGame activeGame: activeGames) {
+            if (activeGame.getStatus().equals("Жду второго игрока")) {
+                findGame = activeGame;
+            }
+        }
+        if(findGame == null) {
+            ActiveGame newActiveGame = new ActiveGame(user, fieldUser);
+            activeGames.add(newActiveGame);
+            return newActiveGame;
+        } else {
+            findGame.setUser2(user, fieldUser);
+            return findGame;
+        }
     }
 
     @Override
@@ -76,13 +87,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int[][] berega() {
+    public List<Ship> berega() {
         GameUntil gameUntil = new GameUntil();
         return gameUntil.berega();
     }
 
     @Override
-    public int[][] halfField() {
+    public List<Ship> halfField() {
         GameUntil gameUntil = new GameUntil();
         return gameUntil.halfField();
     }
