@@ -162,31 +162,31 @@ public class GameUntil {
     }
 
     private void setTwo(int i, int j, int i1, int j1) {
-        field[i][j] = 2;
-        field[i1][j1] = 2;
+        field[i][j] = 1;
+        field[i1][j1] = 1;
     }
 
     private void setThree(int i, int j, boolean isVertical, boolean isMinus) {
         if (isVertical) {
             if (!isMinus) {
                 for (int t = 0; t < 3; t++) {
-                    field[i][j] = 3;
+                    field[i][j] = 1;
                     j++;
                 }
             } else
                 for (int t = 0; t < 3; t++) {
-                    field[i][j] = 3;
+                    field[i][j] = 1;
                     j--;
                 }
         } else {
             if (!isMinus) {
                 for (int t = 0; t < 3; t++) {
-                    field[i][j] = 3;
+                    field[i][j] = 1;
                     i++;
                 }
             } else
                 for (int t = 0; t < 3; t++) {
-                    field[i][j] = 3;
+                    field[i][j] = 1;
                     i--;
                 }
         }
@@ -196,23 +196,23 @@ public class GameUntil {
         if (isVertical) {
             if (!isMinus) {
                 for (int t = 0; t < 4; t++) {
-                    field[i][j] = 4;
+                    field[i][j] = 1;
                     j++;
                 }
             } else
                 for (int t = 0; t < 4; t++) {
-                    field[i][j] = 4;
+                    field[i][j] = 1;
                     j--;
                 }
         } else {
             if (!isMinus)
                 for (int t = 0; t < 4; t++) {
-                    field[i][j] = 4;
+                    field[i][j] = 1;
                     i++;
                 }
             else
                 for (int t = 0; t < 4; t++) {
-                    field[i][j] = 4;
+                    field[i][j] = 1;
                     i--;
                 }
         }
