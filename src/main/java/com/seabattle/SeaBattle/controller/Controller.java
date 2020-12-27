@@ -71,8 +71,8 @@ public class Controller {
     }
 
     @PostMapping("addRating{id}")
-    public void addRating(@RequestParam int id, @RequestBody int rating){
-        userService.addRating(id, rating);
+    public void addRating(@RequestBody User user, @RequestBody int rating){
+        userService.addRating(user.getLogin(), rating);
     }
 
     @GetMapping("users")

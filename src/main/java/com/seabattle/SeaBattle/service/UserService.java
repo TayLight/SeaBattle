@@ -30,7 +30,7 @@ public interface UserService {
 
     List<Ship> halfField();
 
-    void addRating(int id, int rating);
+    void addRating(String login, int rating);
 
     List<User> readAllUserRating();
 }

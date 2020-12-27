@@ -123,7 +123,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addRating(int id, int rating) {
+    public void addRating(String login, int rating) {
+        int id = userRepository.findUserByLogin(login).getUserId();
         Rating rating1 = ratingRepository.findById(id).get();
         rating1.setScore(rating1.getScore()+rating);
         ratingRepository.save(rating1);
