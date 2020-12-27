@@ -133,6 +133,11 @@ public class UserServiceImpl implements UserService {
     public List<User> readAllUserRating() {
         List<User> users =  userRepository.findAll();
         users.sort(Comparator.comparingInt(o -> -o.getRating().getScore()));
+        if(users.size()>10){
+            for(int i=11; i<users.size();i++){
+                users.remove(i);
+            }
+        }
         return users;
     }
 
