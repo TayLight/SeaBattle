@@ -35,6 +35,11 @@ public class Controller {
             return new ResponseEntity<>(null, HttpStatus.I_AM_A_TEAPOT);
     }
 
+    @GetMapping("getInfo")
+    public ActiveGame gameInfo(@RequestBody ActiveGame activeGame, @RequestBody User user){
+        return null;
+    }
+
     @GetMapping("berega")
     public List<Ship> berega(){
         return userService.berega();

@@ -18,6 +18,8 @@ public interface UserService {
 
     void delete(int userId);
 
+    ActiveGame getInfo(ActiveGame activeGame, User user);
+
     User auth(String login, byte[] hash);
 
     ActiveGame newGame(User user, int[][] fieldUser);

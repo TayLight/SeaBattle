@@ -49,6 +49,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public ActiveGame getInfo(ActiveGame activeGame, User user) {
+        for (ActiveGame actGame: activeGames) {
+            if(actGame.getLocalDate().equals(activeGame.getLocalDate())){
+                if(actGame.getWhoTurn().getLogin().equals(user.getLogin())){
+                    return actGame;
+                }
+            }
+        }
+        return null;
+    }
+
+    @Override
     public User auth(String login, byte[] hash) {
         User user  = userRepository.findUserByLogin(login);
         System.out.println(login+" = " + user.getLogin());

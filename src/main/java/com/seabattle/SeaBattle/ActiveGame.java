@@ -5,10 +5,14 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.Random;
 
 @EqualsAndHashCode(callSuper = false)
 public class ActiveGame {
+    @Getter
+    @Setter
+    private LocalDate localDate = LocalDate.now();
     @Setter
     @Getter
     private String status;
@@ -19,8 +23,9 @@ public class ActiveGame {
     private int round;
     private User gamer1;
     private User gamer2;
-    private int countShips1;
-    private int countShips2;
+    private int winCount1;
+    private int winCount2;
+    @Getter
     private User whoTurn;
     private boolean inRound;
     @Getter
@@ -34,6 +39,8 @@ public class ActiveGame {
         user1 = user;
         field1 = fieldUser;
         round = 0;
+        winCount1=20;
+        winCount2=20;
         status = "Ожидание игрока 2";
     }
 
@@ -42,53 +49,43 @@ public class ActiveGame {
         field2 = fieldUser;
         round = 0;
         status = "Раунд 1";
+        winCount1=20;
+        winCount2=20;
         return status;
     }
 
     public String fire(int[] cord, User user) {
-        if (countShips1 != 0 || countShips2 != 0) {
+        if (!isWin()) {
             if (user.getUserId() == user1.getUserId() && whoTurn.equals(user1)) {
-                int result = field2[cord[0]][cord[1]];
-                switch (result) {
-                    case 0:
-                        return "Мимо";
-                    case 1:
-                        field2[cord[0]][cord[1]] = 4;
-                        if (isGameEnd(user2)) {
-                            return "Победа игрока 1";
+                if(user.equals(whoTurn)){
+                    if(whoTurn.equals(user1)){
+                        if(field2[cord[0]][cord[1]]!=0){
+                            field2[cord[0]][cord[1]]=5;
+                            winCount2--;
+                            if(isWin()){
+                                status ="Победа " + user.getLogin();
+                                return "Победа " + user.getLogin();
+                            }
+                            return "Попадание";
+                        } else {
+                            whoTurn=user2;
+                            return "Промах";
                         }
-                        return "Попадание";
-                    case 2:
-                        return "Клетка рядом с кораблем";
-                    case 4:
-                        return "Уже обстрелянная клетка";
-                }
-            } else if (user.getUserId() == user2.getUserId() && whoTurn.equals(user2)) {
-                int result = field2[cord[0]][cord[1]];
-                switch (result) {
-                    case 0:
-                        return "Мимо";
-                    case 1:
-                        field1[cord[0]][cord[1]] = 4;
-                        if (isGameEnd(user1)) {
-                            return "Победа игрока 2";
+                    }else if(whoTurn.equals(user2)){
+                        if(field1[cord[0]][cord[1]]!=0){
+                            field1[cord[0]][cord[1]]=5;
+                            winCount1--;
+                            if(isWin()){
+                                status ="Победа " + user.getLogin();
+                                return "Победа " + user.getLogin();
+                            }
+                            return "Попадание";
+                        } else {
+                            whoTurn=user2;
+                            return "Промах";
                         }
-                        return "Попадание";
-                    case 2:
-                        return "Клетка рядом с кораблем";
-                    case 4:
-                        return "Уже обстрелянная клетка";
-                }
-            } else if (user.getUserId() == user2.getUserId() && whoTurn.equals(user1)) {
-                return "Не твой ход";
-            } else if (user.getUserId() == user1.getUserId() && whoTurn.equals(user2)) {
-                return "Не твой ход";
-            }
-        } else {
-            if (countShips1 == 0) {
-                return "Победа игрока 2";
-            } else {
-                return "Победа игрока 1";
+                    } else return "Читер";
+                } else return "Не твой ход";
             }
         }
         return null;
@@ -116,5 +113,18 @@ public class ActiveGame {
             }
             return count == 20;
         }
+    }
+
+    private boolean isWin(){
+        if(winCount1==0 || winCount2== 0){
+            if(winCount1==0){
+                status="Победа "+ user1.getLogin();
+                return true;
+            }else {
+                status="Победа "+ user2.getLogin();
+                return true;
+            }
+        }
+        else return false;
     }
 }
