@@ -17,4 +17,9 @@ public class Rating {
     private int ratingId;
     @Column(name = "score")
     private int score;
+
+    public Rating(int userId, int i) {
+        this.ratingId=userId;
+        score=i;
+    }
 }
