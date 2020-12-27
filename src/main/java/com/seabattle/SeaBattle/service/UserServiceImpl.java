@@ -133,7 +133,7 @@ public class UserServiceImpl implements UserService {
         List<User> ratings = readAllUser();
         for (User user: ratings) {
             if(user.getRating().getRatingId()==id){
-                user.getRating().setScore(user.getRating().getScore()+rating);
+                user.getRating().setScore(rating);
                 userRepository.save(user);
             }
         }
