@@ -29,9 +29,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public User create(User user)
     {
-        user.setRating(new Rating());
-        user.getRating().setRatingId(user.getUserId());
-        user.getRating().setScore(0);
         User user1 = userRepository.save(user);
         //ratingRepository.save(new Rating(user1.getUserId(), 0));
         return user1;
