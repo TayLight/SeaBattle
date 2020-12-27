@@ -1,6 +1,7 @@
 package com.seabattle.SeaBattle.controller;
 
 import com.seabattle.SeaBattle.ActiveGame;
+import com.seabattle.SeaBattle.entity.NodeRating;
 import com.seabattle.SeaBattle.entity.Ship;
 import com.seabattle.SeaBattle.entity.User;
 import com.seabattle.SeaBattle.service.UserServiceImpl;
@@ -71,8 +72,8 @@ public class Controller {
     }
 
     @PostMapping("addRating")
-    public void addRating(@RequestBody User user, @RequestBody int rating){
-        userService.addRating(user.getLogin(), rating);
+    public void addRating(@RequestBody NodeRating nodeRating){
+        userService.addRating(nodeRating.getLogin(), nodeRating.getScore());
     }
 
     @GetMapping("users")

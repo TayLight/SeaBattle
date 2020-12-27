@@ -29,9 +29,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User create(User user)
     {
-
+        user.getRating().setRatingId(user.getUserId());
+        user.getRating().setScore(0);
         User user1 = userRepository.save(user);
-        ratingRepository.save(new Rating(user1.getUserId(), 0));
+        //ratingRepository.save(new Rating(user1.getUserId(), 0));
         return user1;
     }
 
@@ -128,10 +129,16 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void addRating(String login, int rating) {
+        System.out.println(login+ ": "+ rating);
         int id = userRepository.findUserByLogin(login).getUserId();
-        Rating rating1 = ratingRepository.findById(id).get();
-        rating1.setScore(rating1.getScore()+rating);
-        ratingRepository.save(rating1);
+        System.out.println(id);
+        List<User> ratings = readAllUser();
+        for (User user: ratings) {
+            if(user.getRating().getRatingId()==id){
+                user.getRating().setScore(user.getRating().getScore()+rating);
+                userRepository.save(user);
+            }
+        }
     }
 
     @Override

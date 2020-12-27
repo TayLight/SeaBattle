@@ -94,30 +94,6 @@ public class ActiveGame {
         return null;
     }
 
-    private boolean isGameEnd(User user) {
-        if (user.equals(user1)) {
-            int count = 0;
-            for (int i = 0; i < 9; i++) {
-                for (int j = 0; j < 9; j++) {
-                    if (field1[i][j] == 4) {
-                        count++;
-                    }
-                }
-            }
-            return count == 20;
-        } else {
-            int count = 0;
-            for (int i = 0; i < 9; i++) {
-                for (int j = 0; j < 9; j++) {
-                    if (field1[i][j] == 4) {
-                        count++;
-                    }
-                }
-            }
-            return count == 20;
-        }
-    }
-
     private boolean isWin(){
         if(winCount1==0 || winCount2== 0){
             if(winCount1==0){

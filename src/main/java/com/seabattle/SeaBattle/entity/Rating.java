@@ -1,5 +1,6 @@
 package com.seabattle.SeaBattle.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jdk.jfr.Enabled;
 import lombok.Data;
 import com.seabattle.SeaBattle.entity.User;
@@ -7,12 +8,12 @@ import com.seabattle.SeaBattle.entity.User;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Rating")
+@Table(name = "rating", schema = "public")
 @Data
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", ""})
 public class Rating {
 
     @Id
-    @GeneratedValue
     @Column(name = "id_rating")
     private int ratingId;
     @Column(name = "score")
