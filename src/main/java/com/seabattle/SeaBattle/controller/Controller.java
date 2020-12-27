@@ -37,7 +37,7 @@ public class Controller {
 
     @GetMapping("getInfo")
     public ActiveGame gameInfo(@RequestBody ActiveGame activeGame, @RequestBody User user){
-        return null;
+        return userService.getInfo(activeGame, user);
     }
 
     @GetMapping("berega")

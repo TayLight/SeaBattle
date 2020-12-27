@@ -48,7 +48,8 @@ public class ActiveGame {
         user2 = user;
         field2 = fieldUser;
         round = 0;
-        status = "Раунд 1";
+        whoTurn=user2;
+        status = "Ход "+ user2;
         winCount1=20;
         winCount2=20;
         return status;
@@ -69,6 +70,7 @@ public class ActiveGame {
                             return "Попадание";
                         } else {
                             whoTurn=user2;
+                            status="Ход "+user2.getLogin();
                             return "Промах";
                         }
                     }else if(whoTurn.equals(user2)){
@@ -81,7 +83,8 @@ public class ActiveGame {
                             }
                             return "Попадание";
                         } else {
-                            whoTurn=user2;
+                            whoTurn=user1;
+                            status="Ход "+user1.getLogin();
                             return "Промах";
                         }
                     } else return "Читер";
