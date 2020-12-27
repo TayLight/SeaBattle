@@ -29,4 +29,8 @@ public interface UserService {
     List<Ship> berega();
 
     List<Ship> halfField();
+
+    void addRating(int id, int rating);
+
+    List<User> readAllUserRating();
 }

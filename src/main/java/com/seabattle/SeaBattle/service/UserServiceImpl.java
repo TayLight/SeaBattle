@@ -2,20 +2,25 @@ package com.seabattle.SeaBattle.service;
 
 import com.seabattle.SeaBattle.ActiveGame;
 import com.seabattle.SeaBattle.GameUntil;
+import com.seabattle.SeaBattle.entity.Rating;
 import com.seabattle.SeaBattle.entity.Ship;
 import com.seabattle.SeaBattle.entity.User;
+import com.seabattle.SeaBattle.repo.RatingRepository;
 import com.seabattle.SeaBattle.repo.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
+    private RatingRepository ratingRepository;
     private List<User> activeUser = new LinkedList<>();
     private List<ActiveGame> activeGames = new LinkedList<>();
+    public static final Comparator<User> COMPARE_BY_RATING = (lhs, rhs) -> rhs.getRating().getScore() - lhs.getRating().getScore();
 
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -95,6 +100,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public String fire(ActiveGame activeGame, int[] cord, User user) {
         ActiveGame activeGame1 =  activeGames.get(activeGame.hashCode());
+        for (ActiveGame actGame: activeGames) {
+            if(actGame.getLocalDate().equals(activeGame.getLocalDate())){
+                if(actGame.getWhoTurn().getLogin().equals(user.getLogin())){
+                    activeGame1=actGame;
+                }
+            }
+        }
         return activeGame1.fire(cord, user);
     }
 
@@ -108,6 +120,20 @@ public class UserServiceImpl implements UserService {
     public List<Ship> halfField() {
         GameUntil gameUntil = new GameUntil();
         return gameUntil.halfField();
+    }
+
+    @Override
+    public void addRating(int id, int rating) {
+        Rating rating1 = ratingRepository.findById(id).get();
+        rating1.setScore(rating1.getScore()+rating);
+        ratingRepository.save(rating1);
+    }
+
+    @Override
+    public List<User> readAllUserRating() {
+        List<User> users =  userRepository.findAll();
+        users.sort(Comparator.comparingInt(o -> -o.getRating().getScore()));
+        return users;
     }
 
 

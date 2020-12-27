@@ -69,4 +69,14 @@ public class Controller {
     public String fire(@RequestBody ActiveGame activeGame, @RequestBody int[] cord, @RequestBody User user){
         return userService.fire(activeGame, cord, user);
     }
+
+    @PostMapping("addRating")
+    public void addRating(@RequestParam int id, @RequestBody int rating){
+        userService.addRating(id, rating);
+    }
+
+    @GetMapping("users")
+    public List<User> getAllUsers(){
+        return userService.readAllUserRating();
+    }
 }

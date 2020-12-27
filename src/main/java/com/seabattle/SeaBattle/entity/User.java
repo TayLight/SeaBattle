@@ -32,9 +32,9 @@ public class User {
     private String password;
     @Column(name = "secret_word")
     private String secretWord;
-    /*@OneToOne(optional = false, cascade = CascadeType.ALL)
+    @OneToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_user")
-    private Rating rating;*/
+    private Rating rating;
     
 
     public byte[] hashCodePassword(){
