@@ -70,7 +70,7 @@ public class Controller {
         return userService.fire(activeGame, cord, user);
     }
 
-    @PostMapping("addRating")
+    @PostMapping("addRating{id}")
     public void addRating(@RequestParam int id, @RequestBody int rating){
         userService.addRating(id, rating);
     }
