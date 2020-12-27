@@ -14,6 +14,7 @@ import javax.persistence.*;
 public class Rating {
 
     @Id
+    @GeneratedValue
     @Column(name = "id_rating")
     private int ratingId;
     @Column(name = "score")

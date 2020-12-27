@@ -94,6 +94,7 @@ public class ActiveGame {
         return null;
     }
 
+
     private boolean isWin(){
         if(winCount1==0 || winCount2== 0){
             if(winCount1==0){
