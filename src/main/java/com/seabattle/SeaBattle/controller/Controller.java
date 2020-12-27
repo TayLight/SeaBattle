@@ -66,7 +66,7 @@ public class Controller {
     }
 
     @GetMapping("fire")
-    public ActiveGame fire(@RequestBody ActiveGame activeGame, @RequestBody int[] cord){
-        return userService.fire(activeGame, cord);
+    public String fire(@RequestBody ActiveGame activeGame, @RequestBody int[] cord, @RequestBody User user){
+        return userService.fire(activeGame, cord, user);
     }
 }

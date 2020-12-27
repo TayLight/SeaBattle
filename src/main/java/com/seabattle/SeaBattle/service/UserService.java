@@ -24,7 +24,7 @@ public interface UserService {
 
     ActiveGame newGame(User user, int[][] fieldUser);
 
-    ActiveGame fire(ActiveGame activeGame, int[] cord);
+    String fire(ActiveGame activeGame, int[] cord, User user);
 
     List<Ship> berega();
 

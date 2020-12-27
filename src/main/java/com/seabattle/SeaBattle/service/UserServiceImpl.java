@@ -93,9 +93,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ActiveGame fire(ActiveGame activeGame, int[] cord) {
+    public String fire(ActiveGame activeGame, int[] cord, User user) {
         ActiveGame activeGame1 =  activeGames.get(activeGame.hashCode());
-        return activeGame1;
+        return activeGame1.fire(cord, user);
     }
 
     @Override
