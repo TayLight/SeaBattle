@@ -63,4 +63,12 @@ public class User {
     public void nextRound(){
 
     }
+
+    public Rating getRating() {
+        return rating;
+    }
+
+    public void setRating(Rating rating) {
+        this.rating = rating;
+    }
 }

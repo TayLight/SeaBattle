@@ -30,4 +30,6 @@ public class Rating {
         this.ratingId=userId;
         score=i;
     }
+
+
 }
